@@ -45,10 +45,9 @@ transaction_schema = {
 
 # create a validation function
 
-
 def validate_json(json_data):
     try:
-        json.loads(json_data)
+        json.load(json_data)
     except ValueError as err:
         return False
     return True
@@ -78,9 +77,8 @@ if __name__ == '__main__':
 
     # JSON validation
 
-    with open("./data/data_subset.json") as json_file:
+    with open("C:\\Users\\venuy\\Mylearning\\MyRepo\\data\\data_subset.json") as json_file:
         data = json.load(json_file)
-
     # Below is an example of a json array of objects in ./data/data_subset.json     file
 
     # First dictionary in the list of dictionaries:
@@ -212,4 +210,4 @@ if __name__ == '__main__':
     # >
     # > On instance['InvoiceNo']:
     # >     '536370'
-    # > (False, 'Given JSON data is not valid')
+    # > (False, 'Given JSON data is not valid') 
