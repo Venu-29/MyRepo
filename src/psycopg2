@@ -14,6 +14,11 @@ conn = psycopg2.connect(dbname="python_course", user="postgres", password="examp
 # Open a cursor to perform database operations
 cur = conn.cursor()
 
+cur.execute("DROP TABLE transactions ")
+print("Table dropped... ")
+
+#Commit your changes in the database
+conn.commit()
 sql_create_table = """CREATE TABLE transactions (
             inv_id SERIAL PRIMARY KEY,
             InvoiceNo VARCHAR(255),
@@ -29,15 +34,17 @@ sql_create_table = """CREATE TABLE transactions (
 # Execute a query to create the table
 #cur.execute("""DROP table transactions""")
 cur.execute(sql_create_table)
-
+print('table created')
 conn.commit()
 
 # Execute the copy command to bulk load in data
 copy_command = """COPY transactions(InvoiceNo,StockCode,Description,Quantity,InvoiceDate,UnitPrice,CustomerID,Country) FROM '/mnt/data/data.csv' CSV HEADER;"""
 cur.execute(copy_command)
+print('Copied the data from CSV to table')
+
 conn.commit()
 # query specific invoice
-query_invoice = """Select * from transactions where InvoiceNo = '536370'"""
+query_invoice = """Select * from transactions where InvoiceNo= '536370'"""
 
 # get the results
 cur.execute(query_invoice)
